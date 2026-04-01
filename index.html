@@ -84,10 +84,25 @@
         <p class="outro">Если что я в начале напиздел, хостинг уже нашёл, вы же видите сейчас этот сайт.) Там просто с базой данных проблема, я решу и всё сделаю.</p>
     </div>
 
-    <audio autoplay loop style="display:none;">
+    <audio id="aprilFoolsMusic" loop style="display:none;">
         <source src="musik.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает воспроизведение аудио.
     </audio>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const audio = document.getElementById('aprilFoolsMusic');
+                if (audio) {
+                    // Попытка воспроизвести аудио
+                    const playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.error("Воспроизведение заблокировано браузером:", error);
+                        });
+                    }
+                }
+            }, 1000);
+        });
+    </script>
 
 </body>
 </html>
