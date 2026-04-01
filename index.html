@@ -88,20 +88,23 @@
         <source src="musik.mp3" type="audio/mpeg">
     </audio>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const audio = document.getElementById('aprilFoolsMusic');
-                if (audio) {
-                    // Попытка воспроизвести аудио
-                    const playPromise = audio.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(error => {
-                            console.error("Воспроизведение заблокировано браузером:", error);
-                        });
-                    }
-                }
-            }, 1000);
-        });
+        const audio = document.getElementById('aprilFoolsMusic');
+        
+        // Функция для запуска музыки.
+        function startMusic() {
+            // Проверяем, играет ли уже музыка, чтобы не запускать дважды.
+            if (audio.paused) {
+                audio.play().catch(error => {
+                    console.error("Ошибка воспроизведения:", error);
+                });
+            }
+        }
+
+        // Добавляем обработчики для первого взаимодействия пользователя.
+        // Опция { once: true } автоматически удалит обработчик после первого вызова.
+        document.addEventListener('click', startMusic, { once: true });
+        document.addEventListener('keydown', startMusic, { once: true });
+        document.addEventListener('touchstart', startMusic, { once: true });
     </script>
 
 </body>
